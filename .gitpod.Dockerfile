@@ -20,3 +20,14 @@ RUN git clone https://github.com/flutter/flutter.git -b stable --depth 1 /worksp
 
 # Accept Android SDK licenses
 RUN yes | /workspace/flutter/bin/flutter doctor --android-licenses
+
+# Install Chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y && \
+    rm google-chrome-stable_current_amd64.deb
+
+# Set Chrome environment variable
+ENV CHROME_EXECUTABLE=/usr/bin/google-chrome
+
+# Install GTK 3.0 Libraries
+RUN sudo apt-get install -y libgtk-3-dev
