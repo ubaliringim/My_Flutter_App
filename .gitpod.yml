@@ -1,0 +1,25 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Install Flutter
+    init: |
+      # Install Flutter SDK
+      git clone https://github.com/flutter/flutter.git -b stable --depth 1
+      echo 'export PATH="$PATH:/workspace/flutter/bin"' >> ~/.bashrc
+      source ~/.bashrc
+      flutter precache
+
+  - name: Set up Flutter environment
+    command: |
+      flutter doctor
+      flutter doctor --android-licenses
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+
+vscode:
+  extensions:
+    - Dart-Code.flutter
+
